@@ -37,6 +37,7 @@ function createBookCard(myLibrary) {
         } else {
             button.innerHTML = 'Not read'
         }
+        button.classList.add(`read${n}`)
         remove = document.createElement("button")
         remove.classList.add(`remove${n}`)
         remove.innerHTML = "REMOVE"
@@ -47,6 +48,9 @@ function createBookCard(myLibrary) {
         card.appendChild(remove)
         card.setAttribute('data', `${filteredLibrary[item].id}`)
         library.appendChild(card)
+
+        /* remove book from library */
+
         removebutton = document.querySelector(`.remove${n}`)
         removebutton.addEventListener("click", e => {
             id = e.target.parentNode.getAttribute("data")
@@ -55,6 +59,28 @@ function createBookCard(myLibrary) {
             index = myLibrary.findIndex((e) => e.id == id)
             console.log(index)
             myLibrary.splice(index, 1)
+        })
+
+        /* change read or not read status */
+
+        changebutton = document.querySelector(`.read${n}`)
+        changebutton.addEventListener('click', e => {
+            console.log(1)
+            id = e.target.parentNode.getAttribute("data")
+            if (e.target.innerHTML == "Read") {
+                e.target.innerHTML = "Not read"
+                index = myLibrary.findIndex((e) => e.id == id)
+                myLibrary[index].read = false
+                console.log(myLibrary[index])
+                e.target.checked = false
+            } else if (e.target.innerHTML == "Not read") { 
+                e.target.innerHTML = "Read"
+                index = myLibrary.findIndex((e) => e.id == id)
+                myLibrary[index].read = true
+                console.log(2)
+                console.log(myLibrary[index])
+                e.target.checked = true
+            }
         })
     }
     for (item of filteredLibrary) {
