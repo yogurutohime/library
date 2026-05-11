@@ -24,21 +24,25 @@ function createBookCard(myLibrary) {
         card = document.createElement('div')
         card.classList.add("card");
         author = document.createElement('div')
-        author.innerHTML = `Author: ${myLibrary[item].author}`
+        author.innerHTML = `Author: ${filteredLibrary[item].author}`
         title = document.createElement('div')
-        title.innerHTML = `Title: ${myLibrary[item].title}`
+        title.innerHTML = `Title: ${filteredLibrary[item].title}`
         pages = document.createElement('div')
-        pages.innerHTML = `Pages: ${myLibrary[item].pages}`
-        read = document.createElement('button')
-        if (read.checked == true) {
-            read.innerHTML = "Read"
+        pages.innerHTML = `Pages: ${filteredLibrary[item].pages}`
+        button = document.createElement('button')
+        if (filteredLibrary[item].read == true) {
+            button.innerHTML = 'Read';
         } else {
-            read.innerHTML = "Not read"
+            button.innerHTML = 'Not read'
         }
+        remove = document.createElement("button")
+        remove.classList.add("remove")
+        remove.innerHTML = "REMOVE"
         card.appendChild(author)
         card.appendChild(title)
         card.appendChild(pages)
-        card.appendChild(read)
+        card.appendChild(button)
+        card.appendChild(remove)
         library.appendChild(card)
     }
     for (item of filteredLibrary) {
@@ -54,7 +58,7 @@ function getValueFromForm() {
     author = document.getElementById("author").value
     title = document.getElementById("title").value
     pages = document.getElementById("pages").value
-    read = document.getElementById("read").value
+    read = document.getElementById("read").checked
     return author, title, pages, read
 }
 
