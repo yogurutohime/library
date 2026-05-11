@@ -17,6 +17,8 @@ function addBookToLibrary(author, title, pages, read) {
     myLibrary.push(book);
 }
 
+n=0
+
 function createBookCard(myLibrary) {
     library = document.querySelector(".library")
     filteredLibrary = myLibrary.filter(item => item.showed == false)
@@ -36,7 +38,7 @@ function createBookCard(myLibrary) {
             button.innerHTML = 'Not read'
         }
         remove = document.createElement("button")
-        remove.classList.add("remove")
+        remove.classList.add(`remove${n}`)
         remove.innerHTML = "REMOVE"
         card.appendChild(author)
         card.appendChild(title)
@@ -45,6 +47,15 @@ function createBookCard(myLibrary) {
         card.appendChild(remove)
         card.setAttribute('data', `${filteredLibrary[item].id}`)
         library.appendChild(card)
+        removebutton = document.querySelector(`.remove${n}`)
+        removebutton.addEventListener("click", e => {
+            id = e.target.parentNode.getAttribute("data")
+            e.target.parentNode.remove()
+            console.log(id)
+            index = myLibrary.findIndex((e) => e.id == id)
+            console.log(index)
+            myLibrary.splice(index, 1)
+        })
     }
     for (item of filteredLibrary) {
         for (book of myLibrary) {
@@ -53,6 +64,7 @@ function createBookCard(myLibrary) {
             }
         }
     }
+    n += 1
 }
 
 function getValueFromForm() {
@@ -72,6 +84,10 @@ function clearForm() {
     check.checked = false;
 }
 
+function remove(id) {
+    console.log(1)
+}
+
 dialog = document.querySelector("dialog")
 
 submit = document.querySelector(".submit")
@@ -83,5 +99,7 @@ submit.addEventListener("click", e => {
     createBookCard(myLibrary)
     dialog.close()
 })
+
+
 
 
