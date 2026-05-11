@@ -43,6 +43,7 @@ function createBookCard(myLibrary) {
         card.appendChild(pages)
         card.appendChild(button)
         card.appendChild(remove)
+        card.setAttribute('data', `${filteredLibrary[item].id}`)
         library.appendChild(card)
     }
     for (item of filteredLibrary) {
