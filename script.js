@@ -29,8 +29,12 @@ function createBookCard(myLibrary) {
         title.innerHTML = `Title: ${myLibrary[item].title}`
         pages = document.createElement('div')
         pages.innerHTML = `Pages: ${myLibrary[item].pages}`
-        read = document.createElement('div')
-        read.innerHTML = `read: ${myLibrary[item].read}`
+        read = document.createElement('button')
+        if (read.checked == true) {
+            read.innerHTML = "Read"
+        } else {
+            read.innerHTML = "Not read"
+        }
         card.appendChild(author)
         card.appendChild(title)
         card.appendChild(pages)
@@ -58,7 +62,9 @@ function clearForm() {
     document.getElementById("author").value = ''
     document.getElementById("title").value = ''
     document.getElementById("pages").value = ''
-    document.getElementById("read").value = ''
+    check = document.querySelector(".check")
+    console.log(check.checked)
+    check.checked = false;
 }
 
 dialog = document.querySelector("dialog")
