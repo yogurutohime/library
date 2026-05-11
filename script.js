@@ -9,6 +9,7 @@ function Book(author, title, pages, read) {
     this.title = title;
     this.pages = pages;
     this.read = read;
+    this.showed = false;
 }
 
 function addBookToLibrary(author, title, pages, read) {
@@ -17,8 +18,9 @@ function addBookToLibrary(author, title, pages, read) {
 }
 
 function createBookCard(myLibrary) {
-    library = document.querySelector(".books")
-    for (item in myLibrary) {
+    library = document.querySelector(".library")
+    filteredLibrary = myLibrary.filter(item => item.showed == false)
+    for (item in filteredLibrary) {
         card = document.createElement('div')
         card.classList.add("card");
         author = document.createElement('div')
@@ -35,4 +37,40 @@ function createBookCard(myLibrary) {
         card.appendChild(read)
         library.appendChild(card)
     }
+    for (item of filteredLibrary) {
+        for (book of myLibrary) {
+            if (book.id == item.id) {
+                book.showed = true;
+            }
+        }
+    }
 }
+
+function getValueFromForm() {
+    author = document.getElementById("author").value
+    title = document.getElementById("title").value
+    pages = document.getElementById("pages").value
+    read = document.getElementById("read").value
+    return author, title, pages, read
+}
+
+function clearForm() {
+    document.getElementById("author").value = ''
+    document.getElementById("title").value = ''
+    document.getElementById("pages").value = ''
+    document.getElementById("read").value = ''
+}
+
+dialog = document.querySelector("dialog")
+
+submit = document.querySelector(".submit")
+submit.addEventListener("click", e => {
+    e.preventDefault()
+    author, title, pages, read = getValueFromForm()
+    clearForm()
+    addBookToLibrary(author, title, pages, read)
+    createBookCard(myLibrary)
+    dialog.close()
+})
+
+

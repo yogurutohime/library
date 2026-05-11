@@ -87,3 +87,8 @@ main {
     border: 5px solid rgb(3, 1, 87);
     border-radius: 20px;
 }
+
+dialog[open]{
+  display: flex;
+  flex-direction: column;;
+}
